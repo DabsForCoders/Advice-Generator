@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Advice generator app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap');
+    body{
+      background-color: hsl(218, 23%, 16%);
+      height: 100%;
+    }
+    main{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+    }
+    section{
+      width: 350px;
+      display: flex;
+      flex-direction: column;
+      background-color: hsl(217, 19%, 24%);
+      justify-content: center;
+      border-radius: 10px;
+      text-align: center;
+    }
+    h1{
+      color: hsl(193, 38%, 86%);
+      padding: 0px 20px;
+      margin: 25px 0 25px 0;
+
+      font-size: 28px;
+      font-family: Manrope, sans-serif;
+    }
+    p{
+      margin: 20px 0px 0px 0px;
+      color: hsl(150, 100%, 66%);
+      padding: 10px 10px 0px 10px;
+    }
+    #adviceid{
+      color: hsl(150, 100%, 66%)
+    }
+
+    .divider-pc{
+      display: none;
+      margin: 0px 40px 20px 40px;
+    }
+    .divider-mob{
+      display: block;
+      margin: 0px 30px 20px 30px;
+    }
+    @media(min-width:768px){
+      .divider-mob{
+        display: none;
+      }
+      .divider-pc{
+        display: block;
+      }
+    }
+    .attribution { 
+      font-size: 15px;
+       text-align: center; 
+       margin-top: 15px;
+      }
+    .attribution a { 
+      color: hsl(228, 45%, 44%); 
+      text-decoration: none;
+    }
+    .attribution a:hover { 
+      color: hsl(228, 45%, 44%); 
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <section>
+      <p>Advice  #<span id="adviceid"></span></p>
+      <h1>"<span id="advice"></span>"</h1>
+      <img src="images/pattern-divider-desktop.svg" class="divider-pc" alt="">
+      <img src="images/pattern-divider-desktop.svg" class="divider-mob" alt="">
+    </section>
+  </main>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+  <script>
+    const random_number = Math.random()
+    const randomm = random_number * 200
+    const random_numbers = Math.round(randomm)
+    console.log(random_numbers)
+    const api_url= `https://api.adviceslip.com/advice/${random_numbers}`
+    async function getAdvice() {
+      const response = await fetch(api_url)
+      const data = await response.json();
+      const slip_id = data.slip.advice
+      const id = data.slip.id;
+      document.getElementById('adviceid').innerText = id
+      document.getElementById('advice').textContent = slip_id
+      console.log(slip_id)
+      console.log(id)
+    }
+
+    getAdvice()
+  </script>
+</body>
+</html>
